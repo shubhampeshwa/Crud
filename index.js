@@ -1,4 +1,3 @@
-
 import express from 'express'
 import mongoose from 'mongoose';
 // import Student from './student.js';
@@ -56,7 +55,6 @@ app.post("/studenDetails",async (req,res)=>{
     await newStudent.save(); 
     res.status(201).send(newStudent);
 
-    
 })
 
 app.get("/getAllStudentDetails", async (req, res) => {
@@ -69,22 +67,6 @@ app.get("/getAllStudentDetails", async (req, res) => {
   });
 
 
-// app.get("/ice-tea",(req,res)=>{
-//     res.send("your ice is ready")
-    
-// })
-
-//get item throw ID
-
-// app.get("/studenDetails/:id",(req,res)=>{
-//     const student = studentArray.find(t=>t.id===parseInt(req.params.id))
-    
-//     if(!student) {
-//         return res.status(404).send('student not found')
-//     }
-//     res.status(200).send(student)
-    
-// })
 
 app.get("/getAllStudentName",async (req,res)=>{
     try{
@@ -96,6 +78,10 @@ app.get("/getAllStudentName",async (req,res)=>{
     
 
 })
+
+
+
+
 //677f7729949b780b1b68bb8d
 //Update 
 // app.put("/studenDetails/:id",(req,res)=>{
