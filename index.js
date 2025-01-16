@@ -53,9 +53,10 @@ app.get("/teas",(req,res)=>{
 app.post("/studenDetails",async (req,res)=>{
     const{name,age,email}= req.body
     const newStudent = new Student({ name, age, email });
-    await newStudent.save();
-    // res.status(201).send(studentArray)
+    await newStudent.save(); 
     res.status(201).send(newStudent);
+
+    
 })
 
 app.get("/getAllStudentDetails", async (req, res) => {
