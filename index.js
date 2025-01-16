@@ -54,8 +54,6 @@ app.post("/studenDetails",async (req,res)=>{
     const{name,age,email}= req.body
     const newStudent = new Student({ name, age, email });
     await newStudent.save();
-    // const student = {id:stuID++,name,age,email}
-    // studentArray.push(student)
     // res.status(201).send(studentArray)
     res.status(201).send(newStudent);
 })
