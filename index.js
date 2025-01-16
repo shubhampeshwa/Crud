@@ -12,7 +12,7 @@ const app = express()
      useNewUrlParser: true,
      useUnifiedTopology: true,
     //  useCreateIndex: true,
-    //  useFindAndModify: false,
+    
      useUnifiedTopology: true
    });
    console.log("Mongo DB is Connected...");
@@ -68,10 +68,7 @@ app.get("/getAllStudentDetails", async (req, res) => {
       res.status(500).send({ error: "Failed to fetch students: " + err.message });
     }
   });
-// app.get("/",(req,res)=>{
-//     res.send("hello from shubham byldd")
-    
-// })
+
 
 // app.get("/ice-tea",(req,res)=>{
 //     res.send("your ice is ready")
