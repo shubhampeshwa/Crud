@@ -1,3 +1,4 @@
+
 import express from 'express'
 import mongoose from 'mongoose';
 // import Student from './student.js';
@@ -78,26 +79,67 @@ app.get("/getAllStudentName",async (req,res)=>{
     
 
 })
+//Group aggregation 
+app.get("/getSameAgeStudent", async (req,res)=>{
+  try{
+    const studentArray = await Student.aggregate([
+      { $group: {
+        _id: "$name", 
+        averageAge: { $avg: "$age" }, 
+        email: { $first: "$email" }, 
+        age: { $first: "$age" } 
+      } }
+    ])
+    res.status(200).send(studentArray)
+  } catch{
+    res.status(500).send({error:"failed to fetch same age student: " + err})
+  }
+})
 
 
+//Project aggregration
+
+app.get("/getNameEmail",async (req,res)=>{
+  try{
+    const studentDetails = await Student.aggregate([
+      {
+        $project: { name: 1, email: 1, _id: 0 }
+      }
+    ])
+    res.status(200).send(studentDetails)
+  } catch{
+    res.status(500).send({error:"failed to fetch same age student: " + err})
+  }
+})
+
+//match aggregateion
+
+app.get("/getMatch", async(req, res)=>{
+  try{
+   const studentSameAge = await Student.aggregate([
+    { $match: { age: { $gt: 30 } } }
+   ])
+   res.status(200).send(studentSameAge)
+  } catch{
+    res.status(500).send({error:"failed to fetch same age student: " + err})
+  }
+})
+
+//Sort aggregateion
+
+app.get("/sortData", async(req,res)=>{
+  try{
+const sortedData = await Student.aggregate([
+  { $sort: { age: 1 } }
+])
+res.status(200).send(sortedData)
+  } catch{
+    res.status(500).send({error:"failed to fetch same age student: " + err})
+  }
+})
 
 
-//677f7729949b780b1b68bb8d
-//Update 
-// app.put("/studenDetails/:id",(req,res)=>{
-//     console.log("request==>",req.body)
-//     const studId = Student.find(t=>t._id==req.params.id)
-//     console.log("request==>StuID",studId)
-//     if(!studId) {
-//         return res.status(404).send('student not found')
-//     }
-//     const {name,age} = req.body
-//     studId.name = name
-//     studId.age = age
-//     res.send(200).send(studId)
-
-// })
-
+//update student name and age
 app.put("/studenDetails/:id", async (req, res) => {
     try {
       const { name, age } = req.body; 
